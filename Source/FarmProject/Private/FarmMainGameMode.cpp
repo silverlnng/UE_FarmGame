@@ -15,9 +15,20 @@ void AFarmMainGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	APlayerController* controller =  GetWorld()->GetFirstPlayerController();
-	FarmHUD = Cast<AFarmHUD>(controller->GetHUD());
-	mainWidget = FarmHUD->GetMainUserWidget();
-	mainWidget->SetClock(1);
+	if (controller)
+	{
+		UE_LOG(LogTemp, Log, TEXT("controller!=null"));
+		FarmHUD = Cast<AFarmHUD>(controller->GetHUD());
+		if (FarmHUD)
+		{
+			UE_LOG(LogTemp, Log, TEXT("FarmHUD!=null"));
+			UMainUserWidget* mainWidget_ = FarmHUD->mainUserWidget;
+			if (mainWidget_)
+			{	UE_LOG(LogTemp, Log, TEXT("mainWidget!=null"));
+				mainWidget_->SetClock(1);
+			}
+		}	
+	}
 }
 		
 

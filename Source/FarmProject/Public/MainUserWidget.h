@@ -16,9 +16,14 @@ class FARMPROJECT_API UMainUserWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* clockText;
 	void SetClock(int32 num);
+private:	
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* clockText;
+	
+	UPROPERTY(meta = (BindWidget))
+    UTextBlock* cropText;
+	
 	
 	
 };

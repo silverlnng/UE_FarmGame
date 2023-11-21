@@ -19,9 +19,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Slash)
 	TSubclassOf<class UMainUserWidget> MainUserWidgetClass;
 
-	UPROPERTY()
-	UMainUserWidget* mainUserWidget;	
 
 public:
 	FORCEINLINE UMainUserWidget* GetMainUserWidget() const {return  mainUserWidget; }		
+	UPROPERTY()
+	UMainUserWidget* mainUserWidget;	
 };

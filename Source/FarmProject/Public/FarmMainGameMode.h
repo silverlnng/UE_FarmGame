@@ -29,8 +29,8 @@ public:
 	AFarmHUD* FarmHUD;
 	
 	UPROPERTY(EditAnywhere, Category = "Time")
-	int32 currentTime;
+	int32 currentTime = 0;
 	UPROPERTY(EditAnywhere, Category = "Time")
-	int32 initTime;
+	int32 initTime = 0;
 	
 };
