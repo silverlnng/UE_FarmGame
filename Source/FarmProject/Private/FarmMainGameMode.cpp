@@ -14,14 +14,10 @@ AFarmMainGameMode::AFarmMainGameMode()
 void AFarmMainGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-
-
-	AFarmHUD* FarmHUD = Cast<AFarmHUD>(HUDClass);
-
-	if (FarmHUD)
-	{
-		mainWidget = FarmHUD->GetMainUserWidget();
-	}
+	APlayerController* controller =  GetWorld()->GetFirstPlayerController();
+	FarmHUD = Cast<AFarmHUD>(controller->GetHUD());
+	mainWidget = FarmHUD->GetMainUserWidget();
+	mainWidget->SetClock(1);
 }
 		
 

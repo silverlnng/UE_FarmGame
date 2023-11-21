@@ -21,10 +21,13 @@ public:
 	AFarmMainGameMode();
 	UPROPERTY(EditAnywhere, Category = "Widget")
 	TSubclassOf<class UMainUserWidget> mainWidgetClass;
-	
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere,Category = "Widget")
 	UMainUserWidget* mainWidget;
-
+	
+	UPROPERTY(EditAnywhere, Category = "Widget")
+	TSubclassOf<class AFarmHUD> FarmHUD_BP;
+	AFarmHUD* FarmHUD;
+	
 	UPROPERTY(EditAnywhere, Category = "Time")
 	int32 currentTime;
 	UPROPERTY(EditAnywhere, Category = "Time")
