@@ -14,7 +14,7 @@ AFarmCharacterBase::AFarmCharacterBase()
 }
 
 // Called when the game starts or when spawned
-void AFarmCharacterBase::BeginPlay()
+void AFarmCharacterBase::BeginPlay() override
 {
 	Super::BeginPlay();
 	
