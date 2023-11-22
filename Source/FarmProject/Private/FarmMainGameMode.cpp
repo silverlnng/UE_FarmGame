@@ -2,13 +2,15 @@
 
 
 #include "FarmMainGameMode.h"
-#include "FarmHUD.h"
-#include "MainUserWidget.h"
+#include "UI/FarmHUD.h"
+#include "UI/MainUserWidget.h"
 
 
 AFarmMainGameMode::AFarmMainGameMode()
 {
-	
+	currentTime = 0;
+	PrimaryActorTick.bStartWithTickEnabled = true;
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AFarmMainGameMode::BeginPlay()
@@ -22,10 +24,10 @@ void AFarmMainGameMode::BeginPlay()
 		if (FarmHUD)
 		{
 			UE_LOG(LogTemp, Log, TEXT("FarmHUD!=null"));
-			UMainUserWidget* mainWidget_ = FarmHUD->mainUserWidget;
-			if (mainWidget_)
+			mainWidget = FarmHUD->mainUserWidget;
+			if (mainWidget)
 			{	UE_LOG(LogTemp, Log, TEXT("mainWidget!=null"));
-				mainWidget_->SetClock(1);
+				//mainWidget->SetClock(1);
 			}
 		}	
 	}
@@ -37,9 +39,12 @@ void AFarmMainGameMode::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	currentTime += DeltaSeconds;
+	UE_LOG(LogTemp, Warning, TEXT("%f"),currentTime);
 	if (mainWidget)
 	{
-		mainWidget->SetClock(currentTime);
+		//UE_LOG(LogTemp, Warning, TEXT("&d"),currentTime);
+		int32 IntNumb = FMath::FloorToInt(currentTime);
+		mainWidget->SetClock(IntNumb);
 	}
 	
 }

@@ -16,7 +16,7 @@ class FARMPROJECT_API AFarmMainGameMode : public AGameModeBase
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-
+	
 public:
 	AFarmMainGameMode();
 	UPROPERTY(EditAnywhere, Category = "Widget")
@@ -29,7 +29,7 @@ public:
 	AFarmHUD* FarmHUD;
 	
 	UPROPERTY(EditAnywhere, Category = "Time")
-	int32 currentTime = 0;
+	float currentTime = 0;
 	UPROPERTY(EditAnywhere, Category = "Time")
 	int32 initTime = 0;
 	

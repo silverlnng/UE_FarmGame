@@ -15,8 +15,9 @@ class FARMPROJECT_API AFarmHUD : public AHUD
 	GENERATED_BODY()
 protected:
 	virtual  void BeginPlay() override;
+	virtual void PreInitializeComponents() override;
 private:	
-	UPROPERTY(EditDefaultsOnly, Category = Slash)
+	UPROPERTY(EditDefaultsOnly, Category = Widget)
 	TSubclassOf<class UMainUserWidget> MainUserWidgetClass;
 
 

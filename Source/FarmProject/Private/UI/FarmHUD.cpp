@@ -1,17 +1,23 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "FarmHUD.h"
-#include "MainUserWidget.h"
+#include "UI/FarmHUD.h"
+#include "UI/MainUserWidget.h"
 
 void AFarmHUD::BeginPlay()
 {
 	Super::BeginPlay();
+	
+}
+
+void AFarmHUD::PreInitializeComponents()
+{
+	Super::PreInitializeComponents();
 	UWorld* World =GetWorld();
 
 	if(World)
 	{
-		APlayerController* controller =  World->GetFirstPlayerController();	//½Ì±ÛÇÃ·¹ÀÌ¿¡¼­´Â ¿ÀÁ÷ 1°³ÀÇ ÄÁÆ®·Ñ·¯¸¸ ÀÖÀ½
+		APlayerController* controller =  World->GetFirstPlayerController();	//ï¿½Ì±ï¿½ï¿½Ã·ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(controller && MainUserWidgetClass)
 		{
 			mainUserWidget = CreateWidget<UMainUserWidget>(controller, MainUserWidgetClass);
