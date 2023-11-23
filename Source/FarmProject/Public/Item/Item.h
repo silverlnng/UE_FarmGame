@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Item.generated.h"
-
+class UBoxComponent;
 class USphereComponent;
 UCLASS()
 class FARMPROJECT_API AItem : public AActor
@@ -32,8 +32,5 @@ public:
 	//VITRTUAL 으로 만들어서 자식에서 재정의 가능할수있도록 만듬
 	
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* ItemMesh;
-
-	UPROPERTY(EditAnywhere)
-	USphereComponent* Sphere;
+	UBoxComponent* boxcomp;
 };

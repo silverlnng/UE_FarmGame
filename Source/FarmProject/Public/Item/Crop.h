@@ -21,12 +21,36 @@ UCLASS()
 class FARMPROJECT_API ACrop : public AItem
 {
 	GENERATED_BODY()
+public:
+	ACrop();
+protected:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
+	
 	
 	virtual void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) override;
 	
 	virtual void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) override;
 
+public:	
+	UPROPERTY(EditAnywhere,Category=CropType)
+	ECropType myType;
 	UPROPERTY(EditAnywhere)
-	ECropType myType; 
-	
+	UStaticMeshComponent* ItemMesh;
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* ItemMesh_1;
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* ItemMesh_2;
+	UPROPERTY(EditAnywhere,Category=CropType)
+	float growingRate;
+	UPROPERTY(EditAnywhere,Category=CropType)
+	float firstDelay=2;
+	FTimerHandle growingTimer;  
+	void RepeatingGrowingFunction();
+	UPROPERTY(EditAnywhere,Category=CropType)
+	int32 RepeatingCallsMax = 2;
+	UPROPERTY(EditAnywhere,Category=CropType)
+	int32 RepeatingCalls = 0;
+	UPROPERTY(EditAnywhere,Category=CropType)
+	TArray<UStaticMeshComponent*> StaticMeshArray;
 };
