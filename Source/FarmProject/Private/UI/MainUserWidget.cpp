@@ -4,11 +4,13 @@
 #include "UI/MainUserWidget.h"
 #include "Components/TextBlock.h"
 
-void UMainUserWidget::SetClock(int32 num)
+void UMainUserWidget::SetClockText(float num)
 {
 	if(clockText)
 	{
-		FString IntAsString = FString::FromInt(num);
+		int32 IntNumb = FMath::FloorToInt(num);
+		
+		FString IntAsString = FString::FromInt(IntNumb);
 		FText ftext = FText::FromString(IntAsString);
 		clockText->SetText(ftext);
 	}

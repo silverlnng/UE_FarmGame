@@ -16,14 +16,12 @@ class FARMPROJECT_API UMainUserWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void SetClock(int32 num);
+	void SetClockText(float num);
 private:	
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* clockText;
 	
 	UPROPERTY(meta = (BindWidget))
     UTextBlock* cropText;
-	
-	
 	
 };
