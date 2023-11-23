@@ -8,11 +8,13 @@
 
 AMainPlayerController::AMainPlayerController()
 {
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AMainPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
+	//Locomotion();
 }
 
 void AMainPlayerController::BeginPlay()
@@ -26,6 +28,17 @@ void AMainPlayerController::BeginPlay()
 	
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
+
+	FInputModeGameAndUI InputModeData;
+
+	//FInputModeGameAndUI : 입력 모드도 설정할 수 있습니다.
+	/*이제 입력 모드 게임과 UI 구조체는 입력 모드 구조체이며, 이 입력 모드를 사용한다면
+	키보드와 마우스의 입력을 사용할 수 있으며 입력을 사용하여 위젯과 같은 UI에 영향을 줄 수 있습니다.*/
+
+	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	InputModeData.SetHideCursorDuringCapture(false);
+	SetInputMode(InputModeData);
+	
 }
 
 void AMainPlayerController::SetupInputComponent()
@@ -39,12 +52,18 @@ void AMainPlayerController::SetupInputComponent()
 
 void AMainPlayerController::Move(const FInputActionValue& Value)
 {
-	const FVector CurrentValue = Value.Get<FVector>();
-	//CurrentValue 의 x,y 는 input 값으로 공간벡터의 x,y 가 아님 
+	const FVector2D InputAxisVector = Value.Get<FVector2D>();
+	const FRotator Rotation = GetControlRotation();
+	const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-	//moveDir.x y 는 공간벡터. 그래서 CurrentValue와 별개 .
-	moveDir.X = CurrentValue.Y;
-	moveDir.Y = CurrentValue.X;
+	const FVector forwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector rightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	if (APawn* ControllerPawn = GetPawn<APawn>())
+	{
+		ControllerPawn->AddMovementInput(forwardDirection, InputAxisVector.Y);
+		ControllerPawn->AddMovementInput(rightDirection, InputAxisVector.X);
+	}
 	
 }
 
