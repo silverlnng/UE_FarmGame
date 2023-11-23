@@ -40,7 +40,3 @@ void AMainFarmCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AMainFarmCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
