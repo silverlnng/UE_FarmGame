@@ -8,8 +8,10 @@ ACrop::ACrop()
 {
 	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	ItemMesh->SetupAttachment(GetRootComponent());
+	
 	ItemMesh_1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent_1"));
 	ItemMesh_1->SetupAttachment(GetRootComponent());
+	
 	ItemMesh_2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent_2"));
 	ItemMesh_2->SetupAttachment(GetRootComponent());
 }
@@ -81,6 +83,22 @@ void ACrop::RepeatingGrowingFunction()
 		GetWorldTimerManager().ClearTimer(growingTimer);	// growingTimer 은 이제 다른 타이머에 재사용 가능합니다.
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Black, "timerEnd");
 		RepeatingCalls=0;
+	}
+}
+
+void ACrop::HighlightActor()
+{
+	if(ItemMesh_2->IsVisible())
+	{
+		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, "Crop_Highlight");
+	}
+}
+
+void ACrop::UnHighlightActor()
+{
+	if(ItemMesh_2->IsVisible())
+	{
+		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, "Crop_UnHighlight");
 	}
 }
 

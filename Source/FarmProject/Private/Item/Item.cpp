@@ -3,7 +3,6 @@
 
 #include "Item/Item.h"
 #include "Components/BoxComponent.h"
-#include "Components/SphereComponent.h"
 
 // Sets default values
 AItem::AItem()
@@ -13,6 +12,7 @@ AItem::AItem()
 	
 	boxcomp = CreateDefaultSubobject<UBoxComponent>(TEXT("Sphere"));
 	RootComponent = boxcomp;
+	boxcomp->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 }
 
 // Called when the game starts or when spawned

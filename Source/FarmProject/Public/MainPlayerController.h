@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Item/Crop.h"
 #include "MainPlayerController.generated.h"
 
 class UInputMappingContext;
@@ -37,7 +38,12 @@ public:
 	UInputAction* JumpIA;
 	
 private:
+
 	void Move(const FInputActionValue& Value);
 	void Locomotion();
 	FVector moveDir;
+	
+	void CursorTrace();
+	ACrop* LastActor;
+	ACrop* ThisActor;
 };

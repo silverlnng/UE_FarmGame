@@ -4,17 +4,19 @@
 #include "MainPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
-
+#include "Item/Crop.h"
 
 AMainPlayerController::AMainPlayerController()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = true;
 }
 
 void AMainPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 	//Locomotion();
+	CursorTrace();
 }
 
 void AMainPlayerController::BeginPlay()
@@ -77,3 +79,51 @@ void AMainPlayerController::Locomotion()
     //방향을 초기화
     moveDir = FVector::ZeroVector;
 }
+
+void AMainPlayerController::CursorTrace()
+{
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+
+	if (!CursorHit.bBlockingHit) return;
+	//sGEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, CursorHit.GetActor()->GetName());
+	LastActor = ThisActor;
+	ThisActor = Cast<ACrop>(CursorHit.GetActor());
+	
+	if (LastActor == nullptr)
+	{
+		if (ThisActor != nullptr)
+		{
+			// Case B
+			ThisActor->HighlightActor();
+			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"this !=null");
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"this,last both null");
+			// Case A - both are null, do nothing
+		}
+	}
+	else // LastActor is valid
+	{
+		if (ThisActor == nullptr)
+		{
+			// Case C
+			LastActor->UnHighlightActor();
+		}
+		else // both actors are valid
+		{
+			if (LastActor != ThisActor)
+			{
+				// Case D
+				LastActor->UnHighlightActor();
+				ThisActor->HighlightActor();
+			}
+			else
+			{
+				// Case E - do nothing
+			}
+		}
+	}
+}
+

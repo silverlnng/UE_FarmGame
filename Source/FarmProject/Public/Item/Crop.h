@@ -41,16 +41,25 @@ public:
 	UStaticMeshComponent* ItemMesh_1;
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* ItemMesh_2;
-	UPROPERTY(EditAnywhere,Category=CropType)
+
+	//타이머 세팅
+	UPROPERTY(EditAnywhere,Category=CropTimer)
 	float growingRate;
-	UPROPERTY(EditAnywhere,Category=CropType)
+	
+	UPROPERTY(EditAnywhere,Category=CropTimer)
 	float firstDelay=2;
+	
+	UPROPERTY(EditAnywhere,Category=CropTimer)
+	int32 RepeatingCallsMax = 2;
+	
+	UPROPERTY(EditAnywhere,Category=CropTimer)
+	int32 RepeatingCalls = 0;
+	
 	FTimerHandle growingTimer;  
 	void RepeatingGrowingFunction();
-	UPROPERTY(EditAnywhere,Category=CropType)
-	int32 RepeatingCallsMax = 2;
-	UPROPERTY(EditAnywhere,Category=CropType)
-	int32 RepeatingCalls = 0;
-	UPROPERTY(EditAnywhere,Category=CropType)
-	TArray<UStaticMeshComponent*> StaticMeshArray;
+	//
+	
+	void HighlightActor();
+	void UnHighlightActor();
+	
 };
