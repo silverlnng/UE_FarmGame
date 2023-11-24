@@ -91,6 +91,7 @@ void ACrop::HighlightActor()
 	if(ItemMesh_2->IsVisible())
 	{
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, "Crop_Highlight");
+		ItemMesh_2->SetRenderCustomDepth(true);
 	}
 }
 
@@ -99,6 +100,7 @@ void ACrop::UnHighlightActor()
 	if(ItemMesh_2->IsVisible())
 	{
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, "Crop_UnHighlight");
+		ItemMesh_2->SetRenderCustomDepth(false);
 	}
 }
 
