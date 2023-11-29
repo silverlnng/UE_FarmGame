@@ -34,5 +34,8 @@ public:
 	UPROPERTY(VisibleAnyWhere, Category = "Camera")
 	class UCameraComponent* CameraComp;
 	
-	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USkeletalMeshComponent> hat;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USkeletalMeshComponent> hair;
 };
