@@ -1,5 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// 초기 상태 = 0단계 에서의 Crop에서 interact => 캐릭터가 마우스지점으로 이동하고 애니메이션 몽타주
+
+// 2단계 에서의 Crop에서 interact  => 캐릭터가 마우스지점으로 이동하고 애니메이션 몽타주 + 수확하기 
+
+
+
 
 #include "MainFarmCharacter.h"
 #include "GameFramework/SpringArmComponent.h"

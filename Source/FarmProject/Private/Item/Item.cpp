@@ -21,6 +21,7 @@ void AItem::BeginPlay()
 	Super::BeginPlay();
 	boxcomp->OnComponentBeginOverlap.AddDynamic(this, &AItem::OnSphereOverlap);
 	boxcomp->OnComponentEndOverlap.AddDynamic(this, &AItem::OnSphereEndOverlap);
+	//boxcomp->OnClicked.AddDynamic(this,&AItem::OnBoxClicked);
 }
 
 // Called every frame
@@ -47,3 +48,4 @@ void AItem::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Blue, OtherActorName);
 	}
 }
+

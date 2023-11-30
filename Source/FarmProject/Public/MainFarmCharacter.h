@@ -38,4 +38,8 @@ public:
 	TObjectPtr<USkeletalMeshComponent> hat;
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USkeletalMeshComponent> hair;
+
+	UPROPERTY(EditAnywhere)
+	UActorComponent* inventorySystem; 
+	
 };

@@ -30,6 +30,8 @@ public:
 	UFUNCTION()
 	virtual void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	//VITRTUAL 으로 만들어서 자식에서 재정의 가능할수있도록 만듬
+	/*UFUNCTION()
+	virtual void OnBoxClicked();*/
 	
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* boxcomp;

@@ -32,6 +32,8 @@ protected:
 	
 	virtual void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) override;
 
+	
+	
 public:	
 	UPROPERTY(EditAnywhere,Category=CropType)
 	ECropType myType;

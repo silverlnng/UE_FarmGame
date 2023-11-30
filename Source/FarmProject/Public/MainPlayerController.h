@@ -36,7 +36,8 @@ public:
 	UInputAction* TurnIA;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputAction* JumpIA;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	UInputAction* ClickIA;
 private:
 
 	void Move(const FInputActionValue& Value);
@@ -46,4 +47,6 @@ private:
 	void CursorTrace();
 	ACrop* LastActor;
 	ACrop* ThisActor;
+
+	void Clicked();
 };

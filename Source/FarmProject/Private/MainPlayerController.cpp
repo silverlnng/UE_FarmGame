@@ -10,6 +10,7 @@ AMainPlayerController::AMainPlayerController()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+	bEnableClickEvents=true;
 }
 
 void AMainPlayerController::PlayerTick(float DeltaTime)
@@ -50,6 +51,8 @@ void AMainPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
 	EnhancedInputComponent->BindAction(MoveIA, ETriggerEvent::Triggered, this, &AMainPlayerController::Move);
+	EnhancedInputComponent->BindAction(ClickIA, ETriggerEvent::Started, this, &AMainPlayerController::Clicked);
+	
 }
 
 void AMainPlayerController::Move(const FInputActionValue& Value)
@@ -124,6 +127,32 @@ void AMainPlayerController::CursorTrace()
 				// Case E - do nothing
 			}
 		}
+	}
+}
+
+void AMainPlayerController::Clicked()
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, HitResult);
+	
+	ACrop* crop = Cast<ACrop>(HitResult.GetActor());
+	if(crop)
+	{
+		if(crop->ItemMesh_2->IsVisible())
+		{
+			crop->ItemMesh_2->ToggleVisibility();
+			crop->ItemMesh->ToggleVisibility();
+		}
+	}
+	
+	if (HitResult.GetComponent())
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Red, FString::Printf(TEXT("Mouse Click+++ Component: %s"), *HitResult.GetComponent()->GetName()) );
+	}
+
+	if (HitResult.GetActor())
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Red, FString::Printf(TEXT("Mouse Click+++ Actor: %s"), *HitResult.GetActor()->GetName()));
 	}
 }
 
