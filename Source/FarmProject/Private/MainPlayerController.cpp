@@ -5,12 +5,16 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Item/Crop.h"
+#include "MainFarmCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
+
 
 AMainPlayerController::AMainPlayerController()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 	bEnableClickEvents=true;
+	
 }
 
 void AMainPlayerController::PlayerTick(float DeltaTime)
@@ -18,6 +22,8 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 	Super::PlayerTick(DeltaTime);
 	//Locomotion();
 	CursorTrace();
+	//도착지가 있는경우 interp작동시키기
+	
 }
 
 void AMainPlayerController::BeginPlay()
@@ -41,6 +47,9 @@ void AMainPlayerController::BeginPlay()
 	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	InputModeData.SetHideCursorDuringCapture(false);
 	SetInputMode(InputModeData);
+
+	mainFarmCharacter = Cast<AMainFarmCharacter>(GetCharacter());
+	//controller입장에서 character찾기는 getowner 가 아니라 GetCharacter !!
 	
 }
 
@@ -138,10 +147,38 @@ void AMainPlayerController::Clicked()
 	ACrop* crop = Cast<ACrop>(HitResult.GetActor());
 	if(crop)
 	{
-		if(crop->ItemMesh_2->IsVisible())
+		if(crop->myType==ECropProgressState::growState)
 		{
-			crop->ItemMesh_2->ToggleVisibility();
-			crop->ItemMesh->ToggleVisibility();
+			if(mainFarmCharacter)
+			{
+			 GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"crop 0 state Clicked");
+			/*mainFarmCharacter->GetCharacterMovement()
+			->MoveSmooth(crop->GetActorLocation().GetSafeNormal(),5);*/
+				FVector temp = crop->GetActorLocation()-mainFarmCharacter->GetActorLocation();
+				mainFarmCharacter->GetCharacterMovement()
+				->MoveSmooth(temp,5);
+				
+				//플레이어의 농사 애니메이션 몽타주 작동시키기
+				mainFarmCharacter->ChangedAnimMontage(1);
+				//crop의 grow 타이머 작동시키기
+				//
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"mainFarmCharacter ==null");
+			}
+		}
+		
+		if(crop->myType==ECropProgressState::cropState)
+		{
+			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"ECropProgressState::cropState");
+			FVector temp = crop->GetActorLocation()-mainFarmCharacter->GetActorLocation();
+			mainFarmCharacter->GetCharacterMovement()
+			->MoveSmooth(temp,5);
+			//mainFarmCharacter->GetCharacterMovement()->Move
+			//플레이어의 수확 애니메이션 몽타주 작동시키기
+			//ECropProgressState::growState 으로 변경시키기
+			//인벤토리에 넣기
 		}
 	}
 	

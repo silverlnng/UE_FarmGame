@@ -7,12 +7,6 @@
 #include "Engine/DataTable.h"
 #include "ItemWidget.generated.h"
 
-struct ItemstructDetail
-{
-	FName name;
-	float cost;
-	UTexture2D image;
-};
 
 /**
  * 
@@ -22,8 +16,14 @@ class FARMPROJECT_API UItemWidget : public UUserWidget
 {
 	GENERATED_BODY()
 public:
+	struct ItemstructDetail
+	{
+		FName name;
+		float cost;
+		UTexture2D image;
+	};
 	FName itemID;
-	ItemstructDetail itemDetail;
+	//ItemstructDetail itemDetail;
 	UPROPERTY(EditAnywhere)
 	UDataTable* itemDataTable;
 	void GetDataTableRowNames(FName rowID);

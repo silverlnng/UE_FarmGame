@@ -38,6 +38,7 @@ public:
 	UInputAction* JumpIA;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputAction* ClickIA;
+	class AMainFarmCharacter* mainFarmCharacter;
 private:
 
 	void Move(const FInputActionValue& Value);

@@ -8,20 +8,13 @@ ACrop::ACrop()
 {
 	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	ItemMesh->SetupAttachment(GetRootComponent());
-	
-	ItemMesh_1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent_1"));
-	ItemMesh_1->SetupAttachment(GetRootComponent());
-	
-	ItemMesh_2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent_2"));
-	ItemMesh_2->SetupAttachment(GetRootComponent());
+	myType= ECropProgressState::growState;
 }
 
 void ACrop::BeginPlay()
 {
 	Super::BeginPlay();
-	ItemMesh->SetVisibility(true);
-	ItemMesh_1->SetVisibility(false);
-	ItemMesh_2->SetVisibility(false);
+	ItemMesh->SetStaticMesh(cropMeshArray[0]);
 	//생성되자마자 타이머 시작
 	GetWorldTimerManager().SetTimer(growingTimer,this,&ACrop::RepeatingGrowingFunction,growingRate,true,firstDelay);
 }
@@ -29,6 +22,10 @@ void ACrop::BeginPlay()
 void ACrop::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	//여기서 enum state에 따라서 mesh를 변경시키기
+	
+	
 }
 
 void ACrop::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -36,7 +33,7 @@ void ACrop::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 {
 	//super 으로 부모의 OnSphereOverlap 함수 사용 + 동시에 override으로 재정의
 	Super::OnSphereOverlap(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
-	if(	ItemMesh_2->IsVisible())
+	/*if(	ItemMesh_2->IsVisible())
 	{
 		AMainFarmCharacter* mainFarmCharacter = Cast<AMainFarmCharacter>(OtherActor);
 		if(mainFarmCharacter)
@@ -47,7 +44,7 @@ void ACrop::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 			ItemMesh->ToggleVisibility();
 			GetWorldTimerManager().SetTimer(growingTimer,this,&ACrop::RepeatingGrowingFunction,growingRate,true,firstDelay);
 		}
-	}
+	}*/
 	
 }
 
@@ -60,21 +57,16 @@ void ACrop::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 
 void ACrop::RepeatingGrowingFunction()
 {
-	//켜져있는 0번은 끄고 , 꺼져있는 1번은 키기
-	//켜져있는 1번은 끄고 , 꺼져있는 2번은 키기
+	
 	GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, "timerStart");
-	UStaticMeshComponent* temp=Cast<UStaticMeshComponent>(GetRootComponent()->GetChildComponent(RepeatingCalls));
-	UStaticMeshComponent* temp_plus=Cast<UStaticMeshComponent>(GetRootComponent()->GetChildComponent(++RepeatingCalls));
-	if(temp)
+	
+	if(myType==ECropProgressState::growState)
 	{
-		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, temp->GetName());
-		temp->ToggleVisibility();
+		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, "RepeatingGrowingFunction");
+		//int32 = 
+		ItemMesh->SetStaticMesh(cropMeshArray[++RepeatingCalls]);
 	}
-	if(temp_plus)
-	{
-		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Purple, temp_plus->GetName());
-		temp_plus->ToggleVisibility();
-	}
+	//RepeatingCalls++;
 	
 	GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Black,  FString::FromInt(RepeatingCalls));
 	
@@ -83,24 +75,25 @@ void ACrop::RepeatingGrowingFunction()
 		GetWorldTimerManager().ClearTimer(growingTimer);	// growingTimer 은 이제 다른 타이머에 재사용 가능합니다.
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Black, "timerEnd");
 		RepeatingCalls=0;
+		myType= ECropProgressState::cropState;
 	}
 }
 
 void ACrop::HighlightActor()
 {
-	if(ItemMesh_2->IsVisible())
+	if(myType==ECropProgressState::cropState)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, "Crop_Highlight");
-		ItemMesh_2->SetRenderCustomDepth(true);
+		ItemMesh->SetRenderCustomDepth(true);
 	}
 }
 
 void ACrop::UnHighlightActor()
 {
-	if(ItemMesh_2->IsVisible())
+	if(myType==ECropProgressState::cropState)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, "Crop_UnHighlight");
-		ItemMesh_2->SetRenderCustomDepth(false);
+		ItemMesh->SetRenderCustomDepth(false);
 	}
 }
 

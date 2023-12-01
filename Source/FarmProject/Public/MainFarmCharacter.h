@@ -39,7 +39,8 @@ public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USkeletalMeshComponent> hair;
 
-	UPROPERTY(EditAnywhere)
-	UActorComponent* inventorySystem; 
-	
+	void ChangedAnimMontage(int32 index);
+
+	UPROPERTY(EditAnywhere, Category = "animation")
+	TArray<UAnimMontage*> AnimMotageArray;
 };

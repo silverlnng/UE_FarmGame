@@ -10,11 +10,11 @@
  * 
  */
 UENUM(BlueprintType)	//언리얼 에디터에서 사용가능한 enum 선언
-enum class ECropType : uint8	//uint8형태만 있음 
+enum class ECropProgressState : uint8	//uint8형태만 있음 
 {
 	//DisplayName 안에 있는 내용으로 에디터에서 표시
-	cropBP_0 UMETA(DisplayName = "apple"),
-	cropBP_1 UMETA(DisplayName = "Melon")
+	growState UMETA(DisplayName = "growState"),
+	cropState UMETA(DisplayName = "cropState")
 };  
 
 UCLASS()
@@ -36,14 +36,12 @@ protected:
 	
 public:	
 	UPROPERTY(EditAnywhere,Category=CropType)
-	ECropType myType;
+	ECropProgressState myType;
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* ItemMesh;
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* ItemMesh_1;
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* ItemMesh_2;
-
+	TArray<UStaticMesh*> cropMeshArray;
+	
 	//타이머 세팅
 	UPROPERTY(EditAnywhere,Category=CropTimer)
 	float growingRate;
@@ -52,7 +50,7 @@ public:
 	float firstDelay=2;
 	
 	UPROPERTY(EditAnywhere,Category=CropTimer)
-	int32 RepeatingCallsMax = 2;
+	int32 RepeatingCallsMax = 3;
 	
 	UPROPERTY(EditAnywhere,Category=CropTimer)
 	int32 RepeatingCalls = 0;

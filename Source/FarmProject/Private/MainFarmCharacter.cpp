@@ -10,12 +10,15 @@
 #include "MainFarmCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "item/Crop.h"
+#include "GameFramework/PlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 
 void AMainFarmCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	
 }
 
 AMainFarmCharacter::AMainFarmCharacter()
@@ -44,5 +47,14 @@ void AMainFarmCharacter::PossessedBy(AController* NewController)
 void AMainFarmCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AMainFarmCharacter::ChangedAnimMontage(int32 index)
+{
+	UAnimInstance* animInstance = GetMesh() -> GetAnimInstance();
+	if (animInstance)
+	{
+		animInstance->Montage_Play(AnimMotageArray[index]);
+	}
 }
 
