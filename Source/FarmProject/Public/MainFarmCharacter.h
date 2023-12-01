@@ -44,6 +44,4 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "animation")
 	TArray<UAnimMontage*> AnimMotageArray;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "animation")
-	UAnimMontage
 };

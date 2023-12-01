@@ -47,6 +47,12 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void growProgress();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ACrop* clickedCrop;
+	UFUNCTION(BlueprintImplementableEvent)
+	void cropProgress();
+	
+	
 private:
 
 	void Move(const FInputActionValue& Value);

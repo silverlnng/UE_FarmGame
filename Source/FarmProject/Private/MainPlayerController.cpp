@@ -36,8 +36,14 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 		{
 			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"distance<5");
 			target=nullptr;
-			growProgress();
-			//mainFarmCharacter->ChangedAnimMontage(AnimMontage);
+			if(clickedCrop->myType==ECropProgressState::growState)
+			{
+			 growProgress();
+			}
+			if(clickedCrop->myType==ECropProgressState::growState)
+			{
+				cropProgress();
+			}
 		}
 	}
 	
@@ -161,23 +167,15 @@ void AMainPlayerController::Clicked()
 	FHitResult HitResult;
 	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, HitResult);
 	
-	ACrop* crop = Cast<ACrop>(HitResult.GetActor());
-	if(crop)
+	clickedCrop = Cast<ACrop>(HitResult.GetActor());
+	if(clickedCrop)
 	{
-		if(crop->myType==ECropProgressState::growState)
+		if(clickedCrop->myType==ECropProgressState::growState)
 		{
 			if(mainFarmCharacter)
 			{
 			   GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"crop 0 state Clicked");
-				target=crop;
-				/*FVector temp = crop->GetActorLocation()-mainFarmCharacter->GetActorLocation();
-				mainFarmCharacter->GetCharacterMovement()
-				->MoveSmooth(temp,5);*/
-				
-				//플레이어의 농사 애니메이션 몽타주 작동시키기
-				//mainFarmCharacter->ChangedAnimMontage(1);
-				//crop의 grow 타이머 작동시키기
-				AnimMontage=0;
+				target=clickedCrop;
 				
 			}
 			else
@@ -186,17 +184,11 @@ void AMainPlayerController::Clicked()
 			}
 		}
 		
-		if(crop->myType==ECropProgressState::cropState)
+		if(clickedCrop->myType==ECropProgressState::cropState)
 		{
-			target=crop;
+			target=clickedCrop;
 			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"ECropProgressState::cropState");
-			/*FVector temp = crop->GetActorLocation()-mainFarmCharacter->GetActorLocation();
-			mainFarmCharacter->GetCharacterMovement()
-			->MoveSmooth(temp,5);*/
-			//mainFarmCharacter->GetCharacterMovement()->move
-			//플레이어의 수확 애니메이션 몽타주 작동시키기
-			AnimMontage=1;
-			//ECropProgressState::growState 으로 변경시키기
+			
 			//인벤토리에 넣기
 		}
 	}

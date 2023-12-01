@@ -60,7 +60,8 @@ public:
 	
 	FTimerHandle growingTimer;  
 	void RepeatingGrowingFunction();
-	//
+	UFUNCTION(BlueprintCallable)
+	void StartTimer();
 	
 	void HighlightActor();
 	void UnHighlightActor();

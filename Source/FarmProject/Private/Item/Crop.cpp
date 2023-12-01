@@ -16,7 +16,7 @@ void ACrop::BeginPlay()
 	Super::BeginPlay();
 	ItemMesh->SetStaticMesh(cropMeshArray[0]);
 	//생성되자마자 타이머 시작
-	GetWorldTimerManager().SetTimer(growingTimer,this,&ACrop::RepeatingGrowingFunction,growingRate,true,firstDelay);
+	
 }
 
 void ACrop::Tick(float DeltaSeconds)
@@ -55,6 +55,9 @@ void ACrop::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 	//super 으로 부모의 OnSphereOverlap 함수 사용 + 동시에 override으로 재정의
 }
 
+
+
+
 void ACrop::RepeatingGrowingFunction()
 {
 	
@@ -77,6 +80,11 @@ void ACrop::RepeatingGrowingFunction()
 		RepeatingCalls=0;
 		myType= ECropProgressState::cropState;
 	}
+}
+
+void ACrop::StartTimer()
+{
+	GetWorldTimerManager().SetTimer(growingTimer,this,&ACrop::RepeatingGrowingFunction,growingRate,true,firstDelay);
 }
 
 void ACrop::HighlightActor()
