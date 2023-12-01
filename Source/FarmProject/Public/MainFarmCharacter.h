@@ -39,8 +39,11 @@ public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USkeletalMeshComponent> hair;
 
+	UFUNCTION(BlueprintCallable)	
 	void ChangedAnimMontage(int32 index);
 
-	UPROPERTY(EditAnywhere, Category = "animation")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "animation")
 	TArray<UAnimMontage*> AnimMotageArray;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "animation")
+	UAnimMontage
 };

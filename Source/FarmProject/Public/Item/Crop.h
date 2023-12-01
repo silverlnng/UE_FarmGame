@@ -39,8 +39,11 @@ public:
 	ECropProgressState myType;
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* ItemMesh;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,Category=CropType)
 	TArray<UStaticMesh*> cropMeshArray;
+
+	UPROPERTY(EditAnywhere,Category=CropType)
+	UCurveFloat* TimelineCurve;
 	
 	//타이머 세팅
 	UPROPERTY(EditAnywhere,Category=CropTimer)

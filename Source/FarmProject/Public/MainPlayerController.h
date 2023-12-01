@@ -38,7 +38,15 @@ public:
 	UInputAction* JumpIA;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputAction* ClickIA;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class AMainFarmCharacter* mainFarmCharacter;
+	
+	UPROPERTY(EditAnywhere, Category = Speed)
+	float interpSpeed;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void growProgress();
 private:
 
 	void Move(const FInputActionValue& Value);
@@ -48,6 +56,9 @@ private:
 	void CursorTrace();
 	ACrop* LastActor;
 	ACrop* ThisActor;
-
+	
 	void Clicked();
+	AActor* target;
+	int AnimMontage;
+	
 };
