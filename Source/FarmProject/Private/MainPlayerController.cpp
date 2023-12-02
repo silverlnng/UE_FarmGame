@@ -22,7 +22,7 @@ AMainPlayerController::AMainPlayerController()
 void AMainPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
-	//Locomotion();
+	Locomotion();
 	CursorTrace();
 	//도착지가 있는경우 interp작동시키기
 	if(target != nullptr)
@@ -35,7 +35,6 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 		if(distance<=110)
 		{
 			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"distance<5");
-			target=nullptr;
 			if(clickedCrop->myType==ECropProgressState::growState)
 			{
 			 growProgress();
@@ -44,6 +43,7 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 			{
 				cropProgress();
 			}
+			target=nullptr;
 		}
 	}
 	
@@ -83,13 +83,15 @@ void AMainPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
 	EnhancedInputComponent->BindAction(MoveIA, ETriggerEvent::Triggered, this, &AMainPlayerController::Move);
+	EnhancedInputComponent->BindAction(LookUpIA, ETriggerEvent::Triggered, this, &AMainPlayerController::LookUp);
+	EnhancedInputComponent->BindAction(TurnIA, ETriggerEvent::Triggered, this, &AMainPlayerController::Turn);
 	EnhancedInputComponent->BindAction(ClickIA, ETriggerEvent::Started, this, &AMainPlayerController::Clicked);
 	
 }
 
 void AMainPlayerController::Move(const FInputActionValue& Value)
 {
-	const FVector2D InputAxisVector = Value.Get<FVector2D>();
+	/*const FVector2D InputAxisVector = Value.Get<FVector2D>();
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(0, Rotation.Yaw, 0);
 
@@ -100,9 +102,12 @@ void AMainPlayerController::Move(const FInputActionValue& Value)
 	{
 		ControllerPawn->AddMovementInput(forwardDirection, InputAxisVector.Y);
 		ControllerPawn->AddMovementInput(rightDirection, InputAxisVector.X);
-	}
-	
+	}*/
+	const FVector CurrentValue = Value.Get<FVector>();
+	moveDir.X = CurrentValue.Y;
+	moveDir.Y = CurrentValue.X;
 }
+
 
 void AMainPlayerController::Locomotion()
 {
@@ -113,6 +118,26 @@ void AMainPlayerController::Locomotion()
 	}
     //방향을 초기화
     moveDir = FVector::ZeroVector;
+}
+
+void AMainPlayerController::LookUp(const FInputActionValue& Value)
+{
+	const float _currentValue = Value.Get<float>();
+	if (APawn* ControllerPawn = GetPawn<APawn>())
+	{
+		ControllerPawn->AddControllerPitchInput(_currentValue);		//
+	}
+	
+}
+
+void AMainPlayerController::Turn(const FInputActionValue& Value)
+{
+	const float _currentValue = Value.Get<float>();
+	if (APawn* ControllerPawn = GetPawn<APawn>())
+	{
+		ControllerPawn->AddControllerYawInput(_currentValue);		//
+	}
+	
 }
 
 void AMainPlayerController::CursorTrace()
@@ -193,7 +218,7 @@ void AMainPlayerController::Clicked()
 		}
 	}
 	
-	if (HitResult.GetComponent())
+	/*if (HitResult.GetComponent())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Red, FString::Printf(TEXT("Mouse Click+++ Component: %s"), *HitResult.GetComponent()->GetName()) );
 	}
@@ -201,6 +226,6 @@ void AMainPlayerController::Clicked()
 	if (HitResult.GetActor())
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Red, FString::Printf(TEXT("Mouse Click+++ Actor: %s"), *HitResult.GetActor()->GetName()));
-	}
+	}*/
 }
 

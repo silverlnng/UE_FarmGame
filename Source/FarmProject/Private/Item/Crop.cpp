@@ -15,7 +15,6 @@ void ACrop::BeginPlay()
 {
 	Super::BeginPlay();
 	ItemMesh->SetStaticMesh(cropMeshArray[0]);
-	//생성되자마자 타이머 시작
 	
 }
 
@@ -66,10 +65,9 @@ void ACrop::RepeatingGrowingFunction()
 	if(myType==ECropProgressState::growState)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, "RepeatingGrowingFunction");
-		//int32 = 
 		ItemMesh->SetStaticMesh(cropMeshArray[++RepeatingCalls]);
+		growingSizeEffect();
 	}
-	//RepeatingCalls++;
 	
 	GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Black,  FString::FromInt(RepeatingCalls));
 	

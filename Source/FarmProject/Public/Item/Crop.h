@@ -37,7 +37,7 @@ protected:
 public:	
 	UPROPERTY(EditAnywhere,Category=CropType)
 	ECropProgressState myType;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStaticMeshComponent* ItemMesh;
 	UPROPERTY(EditAnywhere,Category=CropType)
 	TArray<UStaticMesh*> cropMeshArray;
@@ -66,4 +66,6 @@ public:
 	void HighlightActor();
 	void UnHighlightActor();
 	
+	UFUNCTION(BlueprintImplementableEvent)
+	void growingSizeEffect();
 };

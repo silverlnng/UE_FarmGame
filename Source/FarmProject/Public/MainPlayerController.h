@@ -58,6 +58,9 @@ private:
 	void Move(const FInputActionValue& Value);
 	void Locomotion();
 	FVector moveDir;
+	void LookUp(const FInputActionValue& Value);
+	void Turn(const FInputActionValue& Value);
+	
 	
 	void CursorTrace();
 	ACrop* LastActor;
