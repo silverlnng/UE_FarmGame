@@ -8,7 +8,7 @@ ACrop::ACrop()
 {
 	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	ItemMesh->SetupAttachment(GetRootComponent());
-	myType= ECropProgressState::growState;
+	myType= ECropProgressState::seedState;
 }
 
 void ACrop::BeginPlay()

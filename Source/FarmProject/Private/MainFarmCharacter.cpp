@@ -58,3 +58,17 @@ void AMainFarmCharacter::ChangedAnimMontage(int32 index)
 	}
 }
 
+void AMainFarmCharacter::UpdateMoney(int64 inputVal)
+{
+	int64 _result;
+	_result = money + inputVal;
+	if (_result < 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, TEXT("NotEnoughMoney"));
+	}
+	else
+	{
+		money = _result;
+	}
+}
+

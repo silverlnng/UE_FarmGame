@@ -35,11 +35,11 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 		if(distance<=110)
 		{
 			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"distance<5");
-			if(clickedCrop->myType==ECropProgressState::growState)
+			if(clickedCrop->myType==ECropProgressState::seedState)
 			{
 			 growProgress();
 			}
-			if(clickedCrop->myType==ECropProgressState::growState)
+			if(clickedCrop->myType==ECropProgressState::cropState)
 			{
 				cropProgress();
 			}
@@ -197,18 +197,9 @@ void AMainPlayerController::Clicked()
 	clickedCrop = Cast<ACrop>(HitResult.GetActor());
 	if(clickedCrop)
 	{
-		if(clickedCrop->myType==ECropProgressState::growState)
+		if(clickedCrop->myType==ECropProgressState::seedState)
 		{
-			if(mainFarmCharacter)
-			{
-			   GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"crop 0 state Clicked");
-				target=clickedCrop;
-				
-			}
-			else
-			{
-				GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"mainFarmCharacter ==null");
-			}
+			target=clickedCrop;
 		}
 		
 		if(clickedCrop->myType==ECropProgressState::cropState)

@@ -13,10 +13,19 @@ UENUM(BlueprintType)	//언리얼 에디터에서 사용가능한 enum 선언
 enum class ECropProgressState : uint8	//uint8형태만 있음 
 {
 	//DisplayName 안에 있는 내용으로 에디터에서 표시
+	seedState UMETA(DisplayName = "seedState"),
 	growState UMETA(DisplayName = "growState"),
 	cropState UMETA(DisplayName = "cropState")
 };  
-
+UENUM(BlueprintType)	//언리얼 에디터에서 사용가능한 enum 선언
+enum class ECropType : uint8	//uint8형태만 있음 
+{
+	//DisplayName 안에 있는 내용으로 에디터에서 표시
+	corn UMETA(DisplayName = "corn"),
+	pumpkin UMETA(DisplayName = "pumpkin"),
+	wheat UMETA(DisplayName = "wheat"),
+	lettuce UMETA(DisplayName = "lettuce")
+};  
 UCLASS()
 class FARMPROJECT_API ACrop : public AItem
 {
@@ -35,7 +44,7 @@ protected:
 	
 	
 public:	
-	UPROPERTY(EditAnywhere,Category=CropType)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category=CropType)
 	ECropProgressState myType;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStaticMeshComponent* ItemMesh;

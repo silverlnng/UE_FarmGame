@@ -44,4 +44,11 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "animation")
 	TArray<UAnimMontage*> AnimMotageArray;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite ,Category = "Status")
+	int64 money =10;
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateMoney(int64 inputVal);
+	
 };
