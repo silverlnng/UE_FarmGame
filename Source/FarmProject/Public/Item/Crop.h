@@ -46,6 +46,8 @@ protected:
 public:	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category=CropType)
 	ECropProgressState myType;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category=CropType)
+	ECropType cropType;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStaticMeshComponent* ItemMesh;
 	UPROPERTY(EditAnywhere,Category=CropType)
