@@ -9,7 +9,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "Math/Vector.h"
-
+#include "Kismet/KismetMathLibrary.h"
 
 AMainPlayerController::AMainPlayerController()
 {
@@ -31,13 +31,13 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 		FVector NewLocation = FMath::VInterpTo(mainFarmCharacter->GetActorLocation(),target->GetActorLocation(),DeltaTime,interpSpeed);
 		mainFarmCharacter->SetActorLocation(NewLocation);
 		FVector temp = target->GetActorLocation() - mainFarmCharacter->GetActorLocation();
-			
+		FRotator tempDir = UKismetMathLibrary::FindLookAtRotation(mainFarmCharacter->GetActorLocation(),target->GetActorLocation());
+		
 		if (APawn* ControllerPawn = GetPawn<APawn>())
 		{
 			ControllerPawn->AddMovementInput(temp.GetSafeNormal()*60.f);		//
 		}
-		
-		
+		mainFarmCharacter->SetActorRotation(tempDir);
 		float distance =FVector::Distance(mainFarmCharacter->GetActorLocation(),target->GetActorLocation());
 		UE_LOG(LogTemp, Log, TEXT("Character Stamina :: %f"), distance);
 		if(distance<=110)
