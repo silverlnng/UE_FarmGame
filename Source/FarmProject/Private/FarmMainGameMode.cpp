@@ -34,7 +34,7 @@ void AFarmMainGameMode::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	currentTime += DeltaSeconds;
-	UE_LOG(LogTemp, Warning, TEXT("%f"), currentTime);
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), currentTime);
 	if (mainWidget)
 	{
 		mainWidget->SetClockText(currentTime);

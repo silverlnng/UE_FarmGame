@@ -79,4 +79,8 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void growingSizeEffect();
+
+	UFUNCTION(BlueprintCallable)
+	void SetSeedState();
+	
 };

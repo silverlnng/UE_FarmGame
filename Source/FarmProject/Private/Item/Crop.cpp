@@ -103,5 +103,11 @@ void ACrop::UnHighlightActor()
 	}
 }
 
+void ACrop::SetSeedState()
+{
+	myType=ECropProgressState::seedState;
+	ItemMesh->SetStaticMesh(cropMeshArray[0]);
+}
+
 //오직 3단계 (ItemMesh_2 가 visible 일때 만 상호작용 가능하도록 만들기)
 
