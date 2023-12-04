@@ -50,8 +50,8 @@ public:
 	ACrop* clickedCrop;
 	UFUNCTION(BlueprintImplementableEvent)
 	void cropProgress();
-	
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool interpMove=false;
 private:
 
 	void Move(const FInputActionValue& Value);

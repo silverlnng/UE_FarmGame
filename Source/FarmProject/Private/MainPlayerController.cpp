@@ -27,8 +27,16 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 	//도착지가 있는경우 interp작동시키기
 	if(target != nullptr)
 	{
+		interpMove=true;
 		FVector NewLocation = FMath::VInterpTo(mainFarmCharacter->GetActorLocation(),target->GetActorLocation(),DeltaTime,interpSpeed);
 		mainFarmCharacter->SetActorLocation(NewLocation);
+		FVector temp = target->GetActorLocation() - mainFarmCharacter->GetActorLocation();
+			
+		if (APawn* ControllerPawn = GetPawn<APawn>())
+		{
+			ControllerPawn->AddMovementInput(temp.GetSafeNormal()*60.f);		//
+		}
+		
 		
 		float distance =FVector::Distance(mainFarmCharacter->GetActorLocation(),target->GetActorLocation());
 		UE_LOG(LogTemp, Log, TEXT("Character Stamina :: %f"), distance);
@@ -44,6 +52,7 @@ void AMainPlayerController::PlayerTick(float DeltaTime)
 				cropProgress();
 			}
 			target=nullptr;
+			interpMove=false;
 		}
 	}
 	
