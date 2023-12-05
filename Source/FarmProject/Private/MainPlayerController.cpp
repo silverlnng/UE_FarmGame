@@ -88,7 +88,6 @@ void AMainPlayerController::BeginPlay()
 void AMainPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
 	EnhancedInputComponent->BindAction(MoveIA, ETriggerEvent::Triggered, this, &AMainPlayerController::Move);
