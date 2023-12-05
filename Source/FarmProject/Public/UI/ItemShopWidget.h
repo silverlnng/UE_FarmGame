@@ -13,5 +13,10 @@ UCLASS()
 class FARMPROJECT_API UItemShopWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class ANPC* ownerNPC;	
 	
 };
