@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include <Kismet/GameplayStatics.h>
 #include "UI/ItemShopWidget.h"
+#include "MainFarmCharacter.h"
 // Sets default values
 ANPC::ANPC()
 {
@@ -40,18 +41,23 @@ void ANPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ANPC::OverlapBeginTB(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OhterComp, int32 OthterBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, TEXT("Debug"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Magenta, OtherActor->GetName());
 
-	if (WidgetRef)
-	{
-		itemShopWidget= CreateWidget<UItemShopWidget>(GetWorld(), WidgetRef);
-		itemShopWidget->ownerNPC = this;
-		if(itemShopWidget)itemShopWidget->AddToViewport();
-	}
+	
 
 
 	APlayerController* MyPlayerController = UGameplayStatics::GetPlayerController(this,0);
-	MyPlayerController->SetViewTargetWithBlend(this,1.f);
-	MyPlayerController->SetInputMode(FInputModeUIOnly());
-	MyPlayerController->SetShowMouseCursor(true);
+	AMainFarmCharacter* PlayerController=Cast<AMainFarmCharacter>(OtherActor);
+	if( PlayerController)
+	{
+		if (WidgetRef)
+		{
+			itemShopWidget= CreateWidget<UItemShopWidget>(GetWorld(), WidgetRef);
+			itemShopWidget->ownerNPC = this;
+			if(itemShopWidget)itemShopWidget->AddToViewport();
+		}
+		MyPlayerController->SetViewTargetWithBlend(this,1.f);
+		//MyPlayerController->SetInputMode(FInputModeUIOnly());
+		MyPlayerController->SetShowMouseCursor(true);
+	}
 }

@@ -46,7 +46,7 @@ public:
 	TArray<UAnimMontage*> AnimMotageArray;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite ,Category = "Status")
-	int64 money =10;
+	int64 money =100;
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateMoney(int64 inputVal);
