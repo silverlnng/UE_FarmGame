@@ -52,9 +52,6 @@ public:
 	UStaticMeshComponent* ItemMesh;
 	UPROPERTY(EditAnywhere,Category=CropType)
 	TArray<UStaticMesh*> cropMeshArray;
-
-	UPROPERTY(EditAnywhere,Category=CropType)
-	UCurveFloat* TimelineCurve;
 	
 	//타이머 세팅
 	UPROPERTY(EditAnywhere,Category=CropTimer)

@@ -21,10 +21,4 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* clockText;
 	
-	UPROPERTY(meta = (BindWidget))
-    UTextBlock* crop_Corn;
-
-	UPROPERTY(meta = (BindWidget))
-	UTextBlock* crop_Pumpkin;
-	
 };
