@@ -157,14 +157,14 @@ void AMainPlayerController::CursorTrace()
 
 	if (!CursorHit.bBlockingHit) return;
 	//sGEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, CursorHit.GetActor()->GetName());
-	LastActor = ThisActor;
-	ThisActor = Cast<ACrop>(CursorHit.GetActor());
+	LastActor = ThisActor; // 마지막으로 커서 아래의 객체
+	ThisActor = Cast<ACrop>(CursorHit.GetActor()); //현재의 커서아래 객체 
 	
 	if (LastActor == nullptr)
 	{
 		if (ThisActor != nullptr)
 		{
-			// Case B
+			// Case B : 마지막으로 커서 아래의 객체가 없는 상태에 현재 커서아래에는 객체가 있는 경우
 			ThisActor->HighlightActor();
 			GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange,"this !=null");
 		}
@@ -178,20 +178,20 @@ void AMainPlayerController::CursorTrace()
 	{
 		if (ThisActor == nullptr)
 		{
-			// Case C
+			// Case C : 마지막으로 커서 아래의 객체가 있었는데 현재 커서아래에는 객체가 없는 경우
 			LastActor->UnHighlightActor();
 		}
 		else // both actors are valid
 		{
 			if (LastActor != ThisActor)
 			{
-				// Case D
+				// Case D : 마지막으로 커서 아래의 객체가 있었고 현재 커서아래에 다른객체가 있는 경우
 				LastActor->UnHighlightActor();
 				ThisActor->HighlightActor();
 			}
 			else
 			{
-				// Case E - do nothing
+				// Case E - do nothing : 마지막으로 커서 아래의 객체가 있고 지금도 동일한 객체가 커서아래에 있는경우 
 			}
 		}
 	}

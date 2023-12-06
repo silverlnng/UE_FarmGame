@@ -17,7 +17,7 @@ void AFarmHUD::PreInitializeComponents()
 
 	if(World)
 	{
-		APlayerController* controller =  World->GetFirstPlayerController();	//�̱��÷��̿����� ���� 1���� ��Ʈ�ѷ��� ����
+		APlayerController* controller =  World->GetFirstPlayerController();	
 		if(controller && MainUserWidgetClass)
 		{
 			mainUserWidget = CreateWidget<UMainUserWidget>(controller, MainUserWidgetClass);
