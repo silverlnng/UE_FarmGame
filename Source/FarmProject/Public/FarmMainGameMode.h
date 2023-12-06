@@ -30,7 +30,7 @@ public:
 	
 	////시간설정
 	UPROPERTY(EditAnywhere, Category = "Time")
-	float currentTime = 1800;
+	float currentTime = 0;
 	//처음시작을 오후12시 부터 시작하기 60*60*12 /24 = 1800
 	UPROPERTY(EditAnywhere, Category = "Time")
 	int32 initTime = 0;

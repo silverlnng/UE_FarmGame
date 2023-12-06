@@ -8,7 +8,7 @@
 
 AFarmMainGameMode::AFarmMainGameMode()
 {
-	currentTime = 1800;
+	currentTime = 0;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 	PrimaryActorTick.bCanEverTick = true;
 }
