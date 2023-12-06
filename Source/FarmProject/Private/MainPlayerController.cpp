@@ -153,7 +153,7 @@ void AMainPlayerController::Turn(const FInputActionValue& Value)
 void AMainPlayerController::CursorTrace()
 {
 	FHitResult CursorHit;
-	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	GetHitResultUnderCursor(ECC_EngineTraceChannel1, false, CursorHit);
 
 	if (!CursorHit.bBlockingHit) return;
 	//sGEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Orange, CursorHit.GetActor()->GetName());
@@ -200,7 +200,7 @@ void AMainPlayerController::CursorTrace()
 void AMainPlayerController::Clicked()
 {
 	FHitResult HitResult;
-	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, HitResult);
+	GetHitResultUnderCursor(ECollisionChannel::ECC_EngineTraceChannel1, false, HitResult);
 	
 	clickedCrop = Cast<ACrop>(HitResult.GetActor());
 	if(clickedCrop)

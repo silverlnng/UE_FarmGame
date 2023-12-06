@@ -12,6 +12,7 @@ AItem::AItem()
 	
 	boxcomp = CreateDefaultSubobject<UBoxComponent>(TEXT("Sphere"));
 	RootComponent = boxcomp;
+	boxcomp->SetCollisionObjectType(ECC_EngineTraceChannel1);
 	boxcomp->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 }
 

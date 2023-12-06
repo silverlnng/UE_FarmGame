@@ -8,6 +8,7 @@ ACrop::ACrop()
 {
 	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	ItemMesh->SetupAttachment(GetRootComponent());
+	ItemMesh->SetCollisionObjectType(ECC_EngineTraceChannel1);
 	myType= ECropProgressState::seedState;
 }
 
